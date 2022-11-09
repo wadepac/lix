@@ -98,18 +98,6 @@ systemctl restart jenkins.service
   - Docker registry URL: https://index.docker.io/v1/
 
 
-![jenkins-1](images/jenkins/1.png)
-
-![jenkins-2](images/jenkins/2.png)
-
-![jenkins-3](images/jenkins/3.png)
-
-![jenkins-4](images/jenkins/4.png)
-
-![jenkins-5](images/jenkins/5.png)
-
-![jenkins-6](images/jenkins/6.png)
-
 ## Add SRV1 to nginx
 
 ```nginx
