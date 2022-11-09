@@ -1,0 +1,43 @@
+---
+- name: Configure static dns
+  hosts:
+    GSM_spots
+  become: yes
+  become_method: sudo
+  tasks:
+    - name: Configure DNS at GSM
+      lineinfile:
+        path: /etc/dhcpcd.conf
+        regexp: 'static\ domain_name_servers=8.8.8.8'
+        line: 'static domain_name_servers=8.8.8.8'
+        backrefs: yes
+    - name: Service dhcpcd restart at GSM
+      service:
+        name: dhcpcd
+        state: restarted
+    - name: Test reachability to ya.ru at GSM
+      command: ping -c 3 ya.ru
+      register: ping
+
+
+- name: Configure static dns
+  hosts:
+    optics_spots
+  become: yes
+  become_method: sudo
+  tasks:
+    - name: Configure DNS at optics
+      lineinfile:
+        path: /etc/dhcpcd.conf
+        regexp: 'static\ domain_name_servers=8.8.8.8'
+        line: 'static domain_name_servers=194.169.247.214'
+        backrefs: yes
+    - name: Service dhcpcd restart at optics
+      service:
+        name: dhcpcd
+        state: restarted
+    - name: Test reachability to ya.ru at optics
+      command: ping -c 3 ya.ru
+      register: ping
+    
+

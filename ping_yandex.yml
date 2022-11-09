@@ -1,0 +1,16 @@
+---
+- name: Ping ya.ru
+  hosts: spots_time
+  tasks:
+    - name: Test reachability to ya.ru
+      ansible.netcommon.net_ping:
+        dest: ya.ru
+        register: ping
+    
+    - debug:
+        msg: Cannot ping ya.ru
+      when: ping.changed == false
+
+    - debug:
+        msg: Ping succed
+      when: ping.changed == true

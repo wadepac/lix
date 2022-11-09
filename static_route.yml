@@ -1,0 +1,28 @@
+---
+- name: Configure static route
+  hosts: all
+  become: yes
+  become_method: sudo
+  tasks:
+
+    - name: Configure static route
+      lineinfile:
+        path: /etc/netplan/50-cloud-init.yaml
+        line: '            routes:'
+        insertbefore: .*match
+    - name: Configure static route
+      lineinfile:
+        path: /etc/netplan/50-cloud-init.yaml
+        line: '            - to: 192.168.0.0/16'
+        insertbefore: .*match
+
+
+    - name: Configure static route
+      lineinfile:
+        path: /etc/netplan/50-cloud-init.yaml
+        line: '              via: 192.168.90.2'
+        insertafter: .*10.126.253.0
+  
+    - name: Apply netplan
+      command: netplan apply
+      ignore_errors: true
